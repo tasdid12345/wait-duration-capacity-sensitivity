@@ -1,0 +1,31 @@
+{
+  "question": "Can wait-duration features with a class-balanced, CV-tuned gradient-boosting model predict whether one extra unit of resource capacity reduces makespan better than a random forest on count-only wait features?",
+  "method": "Simulated single-resource scheduling instances (numpy); serial schedule-generation at capacity C and C+1; label = makespan drops. Stratified 70/30 split, fixed seed.",
+  "dataset": {
+    "name": "Simulated single-cumulative-resource scheduling instances (numpy, generated at run time)",
+    "source_url": "https://numpy.org/",
+    "n_rows": 6000,
+    "n_train": 4200,
+    "n_test": 1800,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "ROC-AUC",
+  "higher_is_better": true,
+  "baseline": "Random forest (300 trees) on count-only wait features: instance size, capacity, and sorted per-task counts of resource releases waited through.",
+  "improved": "Class-balanced LightGBM with hyper-parameters chosen by cross-validation on the training set, using the same counts plus total, mean, and maximum wait durations.",
+  "metrics": {
+    "baseline_score": 0.6217398508699253,
+    "baseline_score_std": 0.0013557762680620974,
+    "improved_score": 0.704428091037575,
+    "improved_score_std": 0.0,
+    "improvement": 0.08268824016764964,
+    "baseline_f1": 0.8688948465791059,
+    "improved_f1": 0.7698289269051322,
+    "baseline_balanced_accuracy": 0.5504394301216758,
+    "improved_balanced_accuracy": 0.6496028071543447,
+    "improved_cv_auc": 0.6838898248269883,
+    "positive_rate": 0.803
+  },
+  "notes": "Labels come from a simple serial SGS heuristic on random instances, not from the paper's CP solver search; results describe this simulation only. The paper's reported result is not stated. Test set used once; tuning used training-set CV only. Both models use the same seeds (42, 43, 44) and the same evaluation function."
+}
