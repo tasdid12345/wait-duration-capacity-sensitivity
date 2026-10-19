@@ -18,6 +18,28 @@ python analysis.py
 
 **Results:** Results are written to `results.json` (and an optional chart to `figures/`).
 
+## Results (latest run)
+
+On a simulated single-resource scheduling dataset (6,000 instances, 1,800 held out for test), ROC-AUC rose from 0.622 for a standard random forest on count-based wait features to 0.704 for class-balanced LightGBM with CV-tuned hyperparameters and wait-duration features, though F1 fell from 0.869 to 0.770.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.6217 |
+| baseline_score_std | 0.001356 |
+| improved_score | 0.7044 |
+| improved_score_std | 0 |
+| improvement | 0.08269 |
+| baseline_f1 | 0.8689 |
+| improved_f1 | 0.7698 |
+| baseline_balanced_accuracy | 0.5504 |
+| improved_balanced_accuracy | 0.6496 |
+| improved_cv_auc | 0.6839 |
+| positive_rate | 0.803 |
+
+Run on 2026-10-19. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Labels come from a simple serial SGS heuristic on random instances, not from the paper's CP solver search; results describe this simulation only. The paper's reported result is not stated. Test set used once; tuning used training-set CV only. Both models use the same seeds (42, 43, 44) and the same evaluation function.
+
 ## Reference
 
 This project is motivated by the following paper:
